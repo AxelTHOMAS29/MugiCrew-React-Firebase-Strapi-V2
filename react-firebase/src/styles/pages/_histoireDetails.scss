@@ -1,0 +1,124 @@
+.histoireDetails {
+    main {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .background {
+        height: 100vh;
+        width: 10%;
+        position: fixed;
+    }
+
+    .background2 {
+        right: 0;
+    }
+
+    .background-Img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+    }
+
+    section {
+        width: 100%;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 5vh;
+    }
+
+    //Fin de la base
+
+    button {
+        border-radius: 100%;
+        padding: 0.3%;
+        font-size: 20px;
+        margin-top: 5vh;
+    }
+
+    //
+
+    .home-container {
+        .details-container {
+            width: 100%;
+            margin-top: 5vh;
+
+            .details-title-container {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 20vh;
+                width: 60%;
+                left: 20%;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+
+            .details-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 50% 20%;
+            }
+
+            .details-title {
+                position: absolute;
+                z-index: 2;
+                padding: 1%;
+                background-color: $black2;
+                border-radius: 10px;
+            }
+
+            .details-description {
+                display: flex;
+                align-items: baseline;
+                margin-top: 5vh;
+            }
+
+            h3 {
+                display: flex;
+                flex-wrap: nowrap;
+                margin-right: 5%;
+                width: max-content;
+            }
+
+            .description p {
+                margin-bottom: 3vh;
+            }
+
+            .description h3 {
+                text-decoration: underline;
+                margin-top: 5vh;
+            }
+        }
+
+        //Nav Item
+        .button-page {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+        }
+
+        .test-b {
+            margin-right: 2vh;
+        }
+
+        .button-page-suivante {
+            border-radius: 10px;
+            height: 7vh;
+            width: max-content;
+            background-color: $grey;
+            height: 5vh;
+        }
+
+        .test-b .nav-active button {
+            background-color: $color1;
+        }
+    }
+}

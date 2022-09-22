@@ -1,0 +1,47 @@
+.messages-container {
+    width: 100%;
+    padding: 2%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+        .message { 
+            position: relative;
+            overflow-x: hidden;
+            background-color: $black1;
+            padding: 2%;
+            border-radius: 10px;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 30px;
+            margin-bottom: 2vh;
+            max-width: 75%;
+        }
+
+        .message-name {
+            color: $grey;
+            margin-bottom: 1vh;
+            text-decoration-line: underline;
+        }
+
+        p {
+            word-wrap:break-word;
+            white-space: inherit;
+        }
+
+        .icon-delete {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: $color1;
+            cursor: pointer;
+        }
+
+        .test {
+            display: none;
+        }
+
+        .message:hover > .test {
+            display: flex;
+        }
+}

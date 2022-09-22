@@ -1,0 +1,20 @@
+@import "./settings";
+@import "./layout/header";
+@import "./layout/posts";
+@import "./pages/home";
+@import "./pages/histoire";
+@import "./pages/loginSignUp";
+@import "./pages/discussion";
+@import"./pages/personnages";
+@import "./pages/charactersDetails";
+@import "./pages/histoireDetails";
+
+
+//Components
+
+
+@import "./components/characters";
+@import "./components/navigation";
+@import "./components/logo";
+@import "./components/loading";
+@import "./components/message";

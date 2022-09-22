@@ -1,0 +1,58 @@
+.page-container {
+    padding: 2%;
+}
+.searchBar {
+    margin-top: 3vh;
+    margin-left: 5%;
+}
+
+.item-container  {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin-top: 4vh;
+
+    .item {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        margin-bottom: 2vh;
+
+        &:hover > .item-name {
+            opacity: 1;
+            
+        }
+    }
+
+    a {
+        margin-right: 1%;
+        margin-left: 1%;
+    }
+
+    .item:hover > .item-img {
+        opacity: 0.3;
+    }
+    
+
+    .item-name {
+        position: absolute;
+        z-index: 2;
+        opacity: 0;
+        color:aliceblue;
+        font-size: 25px;
+        transition: 0.3s;
+    }
+
+    .item-img { 
+        border-radius: 10px;
+        z-index: 1;
+        transition: 0.3s;
+    }
+
+}

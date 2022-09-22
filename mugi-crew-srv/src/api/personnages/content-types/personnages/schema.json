@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "characters",
+  "info": {
+    "singularName": "personnages",
+    "pluralName": "characters",
+    "displayName": "personnages",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "picture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Description": {
+      "type": "richtext"
+    }
+  }
+}
