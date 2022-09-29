@@ -24,6 +24,14 @@
             text-decoration-line: underline;
         }
 
+        .message-texte {
+            background-color: $black3;
+            padding: 0.5rem;
+            border-radius: 10px;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 0px;
+        }
+
         p {
             word-wrap:break-word;
             white-space: inherit;
@@ -43,5 +51,34 @@
 
         .message:hover > .test {
             display: flex;
+        }
+
+        //Commentaires des postes
+
+        .comment {
+            background-color: $black2;
+            margin-top: 2vh;
+        }
+
+        .icon-comment {
+            margin-top: 2vh;
+            margin-left: 2vh;
+            color: $color1;
+            margin-right: 0.5rem;
+        }
+
+        .icon-comment-link {
+            margin-left: 1rem;
+            color: $color1;
+        }
+
+        .NoSee {
+            display: none;
+        }
+        
+        a {
+            color: $white;
+            text-decoration: none;
+            height: fit-content;
         }
 }

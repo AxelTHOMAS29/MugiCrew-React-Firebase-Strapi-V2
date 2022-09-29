@@ -7,6 +7,7 @@ import Home from './page/Home';
 import LoginSignUp from './page/LoginSignUp';
 import Personnages from './page/Personnages';
 import HistoireDetails from './page/HistoireDetails';
+import DiscussionDetails from './page/DiscussionDetails';
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/discussion" element={<LoginSignUp />} />
           <Route path="/details/:id" element={<PersonnageDetails />} />
           <Route path="/histoireDetail/:id" element={<HistoireDetails />} />
+          <Route path="/discussionDetail/:id" element={<DiscussionDetails />} />
         </Routes>
       
     </BrowserRouter>

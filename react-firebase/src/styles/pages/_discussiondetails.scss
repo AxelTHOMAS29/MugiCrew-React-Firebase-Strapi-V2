@@ -1,0 +1,150 @@
+.discussion-details {
+    main {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .background {
+        height: 100vh;
+        width: 10%;
+        position: fixed;
+    }
+
+    .background2 {
+        right: 0;
+    }
+
+    .background-Img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+    }
+
+    .background-img-2 {
+        object-position: 70% bottom;
+    }
+
+    section {
+        width: 100%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5vh;
+    }
+
+    //Fin de la base
+
+    .buttonBack {
+        border-radius: 100%;
+        padding: 0.3%;
+        font-size: 20px;
+        margin-top: 5vh;
+        margin-left: 2%;
+    }
+
+    .discussion-details-container {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .message {
+        margin-top: 5vh;
+        background-color: $black1;
+        border-radius: 10px;
+        border-bottom-right-radius: 0;
+        padding: 20px;
+        width: fit-content;
+        min-width: 40%;
+        max-width: 90%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-name {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1vh;
+        font-size: 20px;
+
+        .name-letter {
+            padding: 5px;
+            border-radius: 20px;
+            background-color: $color1;
+            margin-right: 0.5vw;
+        }
+    }
+
+    form {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        textarea {
+            margin-top: 2vh;
+            width: 100%;
+            border-radius: 10px;
+            border-top-right-radius: 0;
+            resize: both;
+            min-width: 60%;
+            min-height: 70%;
+        }
+
+        button {
+            background-color: $black1;
+        }
+
+        .icon-comment {
+            color: $color1;
+            font-size: 25px;
+            margin-left: 1vw;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .comments-container {
+        margin-top: 2vh;
+        width: 100%;
+
+        .comments-item {
+            position: relative;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 2vh;
+            background-color: $black3;
+            border-radius: 10px;
+            border-bottom-right-radius: 0;
+
+            h3 {
+                color: $color1;
+                margin-bottom: 1vh;
+            }
+
+            .icon-delete {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                color: $color1;
+                cursor: pointer;
+            }
+    
+            .delete-container {
+                display: none;
+            }
+    
+            &:hover > .delete-container {
+                display: flex;
+            }
+        }
+    }
+}
