@@ -15,7 +15,11 @@
             border-top-left-radius: 0;
             border-bottom-right-radius: 30px;
             margin-bottom: 2vh;
-            max-width: 75%;
+            max-width: 90%;
+
+            @media screen and (max-width: 450px) {
+                min-width: 50%;
+            }
         }
 
         .message-name {
@@ -30,6 +34,14 @@
             border-radius: 10px;
             border-top-left-radius: 0;
             border-bottom-right-radius: 0px;
+
+            @media screen and (max-width: 450px) {
+                min-width: 10%;
+            }
+        }
+
+        .message-texte p {
+            margin-bottom: 1vh;
         }
 
         p {
@@ -37,7 +49,7 @@
             white-space: inherit;
         }
 
-        .icon-delete {
+        .icon-delete, .icon-delete-mobile {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -45,12 +57,36 @@
             cursor: pointer;
         }
 
-        .test {
+        .delete-container {
             display: none;
         }
 
-        .message:hover > .test {
+        .delete-mobile-container {
+            display: none;
+
+            @media screen and (max-width: 1000px) {
+                display: flex;
+            }
+
+            .delete-mobile-container2 {
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                margin-top: 1vh;
+                color: $color1;
+
+                .icon-delete-mobile2 {
+                    margin-left: 1vw;
+                }
+            }
+        }
+
+        .message:hover > .delete-container {
             display: flex;
+
+            @media screen and (max-width: 1000px) {
+                display: none;
+            }
         }
 
         //Commentaires des postes

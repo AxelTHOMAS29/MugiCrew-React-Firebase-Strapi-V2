@@ -1,35 +1,9 @@
 .histoire {
-    main {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .background {
-        height: 100vh;
-        width: 10%;
-        position: fixed;
-    }
-
-    .background2 {
-        right: 0;
-    }
-
     .background-Img {
-        width: 100%;
-        height: 100vh;
-        object-fit: cover;
+        object-position: 40%;
     }
-
     .background-img-2 {
         object-position: 70% bottom;
-    }
-
-    section {
-        width: 100%;
-        margin-left: 10%;
-        margin-right: 10%;
     }
 
     //Fin de la base
@@ -63,6 +37,10 @@
             border-radius: 20px;
             overflow: hidden;
             transition: 0.5s;
+
+            @media screen and (max-width: 450px) {
+                height: 20vh;
+            }
         }
 
         .histoire-name {
@@ -90,6 +68,10 @@
             color: $white;
             transition: 0.5s;
             margin-bottom: 5vh;
+
+            @media screen and (max-width: 450px) {
+                width: 80%;
+            }
 
             &:hover {
                 width: 75%;

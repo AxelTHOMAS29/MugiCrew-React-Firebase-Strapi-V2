@@ -15,13 +15,14 @@ const Histoire = () => {
                 </div>
                 <section className='home-container'>
                     <Logo />
+                    <Navigation />
                     <div className='histoire-saga-title'>
                         <h2>Liste des Sagas</h2>
                     </div>
                     <Stories />
                 </section>
                 <div className='background background2'>
-                    <img className='background-Img' src='./img/JimbeBack.jpg' />
+                    <img className='background-Img' src='./img/NamiBack8.jpg' />
                 </div>
             </main>
         </div>

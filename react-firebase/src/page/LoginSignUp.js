@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth"
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from "../utils/firebase.config"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightToBracket, faMessage, faTrash, faComment, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightToBracket, faMessage, faTrash, faComment, faArrowRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 import ConnectModal from '../components/firebase/ConnectModal';
@@ -20,6 +20,7 @@ const LoginSignUp = () => {
     const [limiteMessage, setLimiteMessage] = useState(10);
     const [loadPost, setLoadPost] = useState(false);
     const [messages, setMessages] = useState([]);
+    const [seeDelete, setSeeDelete] = useState(null)
 
     const messagesRef = db.collection('messages');
 
@@ -44,9 +45,6 @@ const LoginSignUp = () => {
     const deleteDoc = (id) => {
         db.collection('messages').doc(id).delete()
         setLoadPost(true)
-            .then(() => {
-                console.log('succes')
-            })
     }
 
     const loadMore = () => {
@@ -99,6 +97,7 @@ const LoginSignUp = () => {
                 </div>
                 <section className='home-container'>
                     <Logo />
+                    <Navigation />
                     <div className='discussion-title'>
                         <h2>Discussion</h2>
                     </div>
@@ -146,9 +145,8 @@ const LoginSignUp = () => {
 
     function ChatMessage(props) {
         const { text, name, uid, id, commentNB } = props.message;
-        const [seeComments, setSeeComments] = useState(false);
-        console.log(commentNB)
-        const commentNumber = commentNB === 0 ? 'NoSee' : 'see';
+    
+        //const commentNumber = commentNB === 0 ? 'NoSee' : 'see';
         return (<>
             <div className="message">
                 <h3 className='message-name'>{name}</h3>
@@ -156,9 +154,22 @@ const LoginSignUp = () => {
                     <ReactMarkdown>{text}</ReactMarkdown>
                 </div>
                 {user && (
-                    <div className='test'>
+                    <div className='delete-container'>
                         {auth.currentUser.uid === uid && (
                             <FontAwesomeIcon className='icon-delete' onClick={() => deleteDoc(id)} icon={faTrash} />
+                        )}
+                    </div>
+                )}
+                {user && (
+                    <div className='delete-mobile-container'>
+                        {auth.currentUser.uid === uid && (
+                            <FontAwesomeIcon className='icon-delete-mobile' onClick={() => setSeeDelete(id)} icon={faPlus} />
+                        )}
+                        {seeDelete === id && (
+                            <div className='delete-mobile-container2'  onClick={() => deleteDoc(id)}>
+                                <p>Supprimer le commentaire</p>
+                                <FontAwesomeIcon className='icon-delete-mobile2' icon={faTrash} />
+                            </div>
                         )}
                     </div>
                 )}

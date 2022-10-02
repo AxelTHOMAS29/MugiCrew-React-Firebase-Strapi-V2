@@ -2,19 +2,20 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { db, auth } from '../utils/firebase.config';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import firebase from 'firebase/compat/app';
+
+import { db, auth } from '../utils/firebase.config';
+import ConnectModal from '../components/firebase/ConnectModal';
 import Loading from "../components/Loading"
 import Navigation from '../components/Navigation';
 import LogoDetails from '../components/LogoDetails';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPaperPlane, faTrash } from "@fortawesome/free-solid-svg-icons";
-import firebase from 'firebase/compat/app';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import { faArrowLeft, faPaperPlane, faTrash, faArrowRightFromBracket, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const DiscussionDetails = () => {
     const { id } = useParams();
-    const [createMessage, setCreateMesssage] = useState(false);
     const [message, setMessage] = useState("");
     const [user] = useAuthState(auth);
     const [limiteMessage, setLimiteMessage] = useState(10);
@@ -23,8 +24,10 @@ const DiscussionDetails = () => {
     const [test, setTest] = useState(false);
     const [loadMore, setLoadMore] = useState(false);
     const [reduce, setReduce] = useState(false);
+    const [seeLog, setSeeLog] = useState(false)
     const [messages, setMessages] = useState([]);
     const [comments, setComments] = useState();
+    const [seeDelete, setSeeDelete] = useState(null)
 
     const commentsRef = db.collection(`messages/${id}/commentaires`);
 
@@ -122,10 +125,21 @@ const DiscussionDetails = () => {
                 </div>
                 <section >
                     <LogoDetails />
+                    <Navigation />
                     <div className='title'>
                         <h2>Discussion</h2>
                     </div>
-                    <NavLink to="/discussion"><button className='buttonBack'><FontAwesomeIcon icon={faArrowLeft} /></button></NavLink>
+                    <NavLink to="/discussion">
+                        <button className='buttonBack'><FontAwesomeIcon icon={faArrowLeft} /></button>
+                    </NavLink>
+                    {user ? (
+                        <div></div>
+                    ) : (<div>
+                        {seeLog && (
+                            <ConnectModal />
+                        )}
+                    </div>)}
+
                     <div className='discussion-details-container'>
                         {loadPost ? (
                             <div className='message'>
@@ -134,20 +148,40 @@ const DiscussionDetails = () => {
                                     <h3>{messages.data().name}</h3>
                                 </div>
                                 <ReactMarkdown>{messages.data().text}</ReactMarkdown>
-                                <form className='form' onSubmit={sendMessage} >
-                                    <textarea className='comment-form' placeholder='Ajouter un commentaire...' value={message} onChange={(e) => setMessage(e.target.value)} />
-                                    <button type='submit' className='comment-button' disabled={!message}><FontAwesomeIcon className='icon-comment' icon={faPaperPlane} /></button>
-                                </form>
+                                {user ? (
+                                    <form className='form' onSubmit={sendMessage} >
+                                        <textarea className='comment-form' placeholder='Ajouter un commentaire...' value={message} onChange={(e) => setMessage(e.target.value)} />
+                                        <button type='submit' className='comment-button' disabled={!message}><FontAwesomeIcon className='icon-comment' icon={faPaperPlane} /></button>
+                                    </form>
+                                ) : (
+                                    <span className='comment-unlog'>Vous devez être connecté pour envoyer des commentaires...
+                                        <FontAwesomeIcon className='icon-log' onClick={() => setSeeLog(true)} icon={faArrowRightFromBracket} />
+                                    </span>
+                                )}
+
                                 <div className='comments-container'>
                                     {comments.map(comment => (
                                         <div className='comments-item' key={comment.id}>
                                             <h3>{comment.name}</h3>
                                             <ReactMarkdown>{comment.comment}</ReactMarkdown>
-                                            
+
                                             {user && (
                                                 <div className='delete-container'>
                                                     {auth.currentUser.uid === comment.uid && (
                                                         <FontAwesomeIcon className='icon-delete' onClick={() => deleteDoc(comment.id)} icon={faTrash} />
+                                                    )}
+                                                </div>
+                                            )}
+                                            {user && (
+                                                <div className='delete-mobile-container'>
+                                                    {auth.currentUser.uid === comment.uid && (
+                                                        <FontAwesomeIcon className='icon-delete-mobile' onClick={() => setSeeDelete(comment.id)} icon={faPlus} />
+                                                    )}
+                                                    {seeDelete === comment.id && (
+                                                        <div className='delete-mobile-container2' onClick={() => deleteDoc(comment.id)}>
+                                                            <span>Supprimer le commentaire</span>
+                                                            <FontAwesomeIcon className='icon-delete-mobile2' icon={faTrash} />
+                                                        </div>
                                                     )}
                                                 </div>
                                             )}

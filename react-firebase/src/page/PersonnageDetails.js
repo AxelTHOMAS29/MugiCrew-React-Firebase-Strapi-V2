@@ -16,6 +16,7 @@ const PersonnageDetails = () => {
                 </div>
                 <section className='home-container'>
                     <LogoDetails />
+                    <Navigation />
                     <NavLink to="/personnages">
                         <button>
                             <FontAwesomeIcon icon={faArrowLeft} />

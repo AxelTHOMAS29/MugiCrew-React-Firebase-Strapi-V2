@@ -12,7 +12,8 @@ const Home = () => {
                 </div>
                 <section className='home-container'>
                     <Logo />
-                    <h1>Work in Progress</h1>
+                    <Navigation />
+                    <h1>Le site est encore en cours de construction, certaines pages peuvent ne pas être completes</h1>
                 </section>
                 <div className='background background2'>
                     <img className='background-Img' src='./img/ZoroBack.jpg' />

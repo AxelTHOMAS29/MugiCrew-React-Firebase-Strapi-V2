@@ -14,6 +14,7 @@ const Personnages = () => {
                 </div>
                 <section className='home-container'>
                     <Logo />
+                    <Navigation />
                     <div className='title-container'>
                         <h2>Liste des Personnages</h2>
                     </div>

@@ -13,9 +13,9 @@ const Stories = () => {
         <div className='histoire-container'>
         {dataHistoire.data.map(Histoire => (
             <Link to={`/histoireDetail/${Histoire.id}`}>
-                <div key={Histoire.attributes.id} className='item'>
-                    <div className='histoire-name'><h2>{Histoire.attributes.Nom}</h2></div>
-                    <img className='histoire-img' src={"http://localhost:1337" + Histoire.attributes.Image.data.attributes.url}></img>
+                <div key={Math.random()} className='item'>
+                    <div className='histoire-name' key={Math.random()}><h2>{Histoire.attributes.Nom}</h2></div>
+                    <img className='histoire-img' key={Math.random()} src={"http://localhost:1337" + Histoire.attributes.Image.data.attributes.url}></img>
                 </div>
              </Link>
         ))}

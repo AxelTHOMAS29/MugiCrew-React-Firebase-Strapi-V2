@@ -1,7 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { auth } from "../utils/firebase.config"
+import { signOut } from "firebase/auth"
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = () => {
+    const [user] = useAuthState(auth);
+
+    //déconexion
+    const handleLogout = async () => {
+        await signOut(auth);
+    }
+
     return (
         <nav className="navigation">
             <ul>
@@ -23,11 +35,11 @@ const Navigation = () => {
                     className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Discussion</li>
                 </NavLink>
-                <NavLink
-                    to="/log"
-                    className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                    <li>Connexion</li>
-                </NavLink>  
+                {user && (
+                    <button onClick={() => handleLogout()}>
+                        <FontAwesomeIcon className='icon-nav-unlog' icon={faArrowRightToBracket} />
+                    </button>)}
+
             </ul>
         </nav>
     );
