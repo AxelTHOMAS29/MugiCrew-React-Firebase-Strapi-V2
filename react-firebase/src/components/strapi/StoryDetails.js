@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import useFetchHistoireSingle from '../../hooks/useFetchHistoireSingle';
 import useFetchHistoire from '../../hooks/useFetchHistoire';
 import Loading from '../Loading';
+import Error from '../Error';
 
 const StoryDetails = () => {
     const { id } = useParams()
@@ -13,9 +14,9 @@ const StoryDetails = () => {
 
 
     if (loadingHistoireSingle) return <Loading />
-    if (errorHistoireSingle) return <p>error</p>
+    if (errorHistoireSingle) return <Error />
     if (loadingHistoire) return <Loading />
-    if (errorHistoire) return <p>error</p>
+    if (errorHistoire) return <Error />
 
     return (
         <div>

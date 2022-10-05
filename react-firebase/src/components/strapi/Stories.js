@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useFetchHistoire from '../../hooks/useFetchHistoire';
 import Loading from '../Loading';
+import Error from '../Error';
 
 const Stories = () => {
     const { loadingHistoire, errorHistoire, dataHistoire } = useFetchHistoire('http://localhost:1337/api/histoires?populate=*')
 
     if (loadingHistoire) return <Loading />
-    if (errorHistoire) return <p>error</p>
+    if (errorHistoire) return <Error />
 
     return (
         <div className='histoire-container'>

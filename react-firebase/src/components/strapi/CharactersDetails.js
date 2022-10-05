@@ -3,6 +3,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../Loading';
+import Error from '../Error';
 
 
 const CharactersDetails = () => {
@@ -10,7 +11,7 @@ const CharactersDetails = () => {
     const { loading, error, data } = useFetch(`http://localhost:1337/api/characters/${id}?populate=*`)
 
     if (loading) return <Loading />
-    if (error) return <p>error</p>
+    if (error) return <Error />
 
     return (
         <div>

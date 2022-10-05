@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../Loading';
+import Error from '../Error';
 
 
 const Characters = () => {
@@ -10,7 +11,7 @@ const Characters = () => {
     const [ searchName, setSearchName] = useState("")
 
     if (loading) return <Loading />
-    if (error) return <p>error</p>
+    if (error) return <Error />
 
     return (
         <div className='page-container'>

@@ -6,6 +6,7 @@ import { auth, db } from "../utils/firebase.config"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket, faMessage, faTrash, faComment, faArrowRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import moment from "moment";
 
 import ConnectModal from '../components/firebase/ConnectModal';
 import Navigation from '../components/Navigation';
@@ -16,6 +17,7 @@ const LoginSignUp = () => {
 
     const [createMessage, setCreateMesssage] = useState(false);
     const [message, setMessage] = useState("");
+    const [video, setVideo] = useState("");
     const [user] = useAuthState(auth);
     const [limiteMessage, setLimiteMessage] = useState(10);
     const [loadPost, setLoadPost] = useState(false);
@@ -33,7 +35,8 @@ const LoginSignUp = () => {
         //Récupérer les commentaires
         allMessages.map(async (elem) => {
             const reqC = await db.collection(`messages/${elem.id}/commentaires`).orderBy('createdAt', 'desc').get();
-            const allComments = reqC.docs.map((comment) => ({ ...comment.data(), id: comment.id })) 
+            const allComments = reqC.docs.map((comment) => ({ ...comment.data(), id: comment.id }))
+
         })
     }
 
@@ -52,6 +55,23 @@ const LoginSignUp = () => {
             setLoadPost(true);
         }
     }
+
+    //Récupérer les vidéos
+    useEffect(() => {
+        const handleVideo = () => {
+            let findLink = message.split(" ");
+            for (let i = 0; i < findLink.length; i++) {
+                if (
+                    findLink[i].includes("https://www.yout") ||
+                    findLink[i].includes("https://yout")
+                ) {
+                    let embed = findLink[i].replace("watch?v=", "embed/");
+                    setVideo(embed.split("&")[0]);
+                }
+            }
+        };
+        handleVideo();
+    }, [message, video]);
 
     //rendre la page dynamique
     useEffect(() => {
@@ -72,13 +92,15 @@ const LoginSignUp = () => {
 
         await messagesRef.add({
             text: message,
+            youtube: video,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             uid,
             name: user.displayName,
             commentNB: 0,
         })
-        setLoadPost(true)
+        setLoadPost(true);
         setMessage('');
+        setVideo('');
     }
 
 
@@ -117,6 +139,10 @@ const LoginSignUp = () => {
                                     <div className='new-post-modal'>
                                         <form onSubmit={sendMessage}>
                                             <textarea placeholder='Message...' value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                                            <div className='img-upload-container'>
+                                                <img id='img-post' src='./img/icones/picture.svg' />
+                                                <input className='file-upload' type="file" accept='.jpg, .jpeg, .png' name='file'/>
+                                            </div>
                                             <input type='submit' disabled={!message} value='Envoyer'></input>
                                         </form>
                                     </div>
@@ -133,8 +159,54 @@ const LoginSignUp = () => {
                             </div>)}
                     <div className='postes-container'></div>
                     <div className='messages-container'>
-                        {messages && messages.map(msg => <ChatMessage key={msg.createdAt} message={msg} />)}
+                        {messages && messages.map(msg =>
+                        (<div className="message" key={msg.id}>
+                            <div className='message-name-date'>
+                                <h3 className='message-name'>{msg.name}</h3>
+                                <p>{moment(msg.createdAt.toDate()).format("DD/MM/YY HH:MM")}</p>
+                            </div>
+                            <div className='message-texte'>
+                                <ReactMarkdown>{msg.text}</ReactMarkdown>
+                                {msg.youtube && (
+                                    <iframe src={msg.youtube} frameBorder='0'
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        title={msg.youtube}
+                                        className='video-youtube' />
+                                )}
+                            </div>
+
+
+                            {user && (
+                                <div className='delete-container'>
+                                    {auth.currentUser.uid === msg.uid && (
+                                        <FontAwesomeIcon className='icon-delete' onClick={() => deleteDoc(msg.id)} icon={faTrash} />
+                                    )}
+                                </div>
+                            )}
+                            {user && (
+                                <div className='delete-mobile-container'>
+                                    {auth.currentUser.uid === msg.uid && (
+                                        <FontAwesomeIcon className='icon-delete-mobile' onClick={() => setSeeDelete(msg.id)} icon={faPlus} />
+                                    )}
+                                    {seeDelete === msg.id && (
+                                        <div className='delete-mobile-container2' onClick={() => deleteDoc(msg.id)}>
+                                            <p>Supprimer le commentaire</p>
+                                            <FontAwesomeIcon className='icon-delete-mobile2' icon={faTrash} />
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                            <NavLink to={`/discussionDetail/${msg.id}`}>
+                                <div>
+                                    <FontAwesomeIcon className='icon-comment' icon={faComment} />
+                                    {msg.commentNB}
+                                    <FontAwesomeIcon className='icon-comment-link' icon={faArrowRight} />
+                                </div>
+                            </NavLink>
+                        </div>))}
                     </div>
+
                 </section>
                 <div className='background background2'>
                     <img className='background-Img' src='./img/KaidoBack.jpg' />
@@ -142,47 +214,6 @@ const LoginSignUp = () => {
             </main>
         </div>
     );
-
-    function ChatMessage(props) {
-        const { text, name, uid, id, commentNB } = props.message;
-    
-        //const commentNumber = commentNB === 0 ? 'NoSee' : 'see';
-        return (<>
-            <div className="message">
-                <h3 className='message-name'>{name}</h3>
-                <div className='message-texte'>
-                    <ReactMarkdown>{text}</ReactMarkdown>
-                </div>
-                {user && (
-                    <div className='delete-container'>
-                        {auth.currentUser.uid === uid && (
-                            <FontAwesomeIcon className='icon-delete' onClick={() => deleteDoc(id)} icon={faTrash} />
-                        )}
-                    </div>
-                )}
-                {user && (
-                    <div className='delete-mobile-container'>
-                        {auth.currentUser.uid === uid && (
-                            <FontAwesomeIcon className='icon-delete-mobile' onClick={() => setSeeDelete(id)} icon={faPlus} />
-                        )}
-                        {seeDelete === id && (
-                            <div className='delete-mobile-container2'  onClick={() => deleteDoc(id)}>
-                                <p>Supprimer le commentaire</p>
-                                <FontAwesomeIcon className='icon-delete-mobile2' icon={faTrash} />
-                            </div>
-                        )}
-                    </div>
-                )}
-                <NavLink to={`/discussionDetail/${id}`}>
-                    <div>
-                        <FontAwesomeIcon className='icon-comment' icon={faComment} />
-                        {commentNB}
-                        <FontAwesomeIcon className='icon-comment-link' icon={faArrowRight} />
-                    </div>
-                </NavLink>
-            </div>
-        </>)
-    };
 };
 
 export default LoginSignUp;

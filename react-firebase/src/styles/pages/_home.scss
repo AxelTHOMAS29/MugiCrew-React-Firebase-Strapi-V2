@@ -1,7 +1,87 @@
 .home {
-    h1 {
+
+    .home-container {
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    .home-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $black1;
+        padding: 0.5rem;
+        margin-top: 2vh;
+        border-radius: 20px;
+        animation: coloaraa 30s alternate infinite;
+
+        h2 {
+            border-radius: 10px;
+            font-size: large;
+            margin-left: 5%;
+            text-align: center;
+            //
+        }
+    }
+    
+    
+
+    @keyframes coloaraa {
+        0% {
+          background-color: $black1;
+        }
+        50% {
+          background-color: $black3;
+        }
+        100% {
+          background-color: $black1;
+        }
+      }
+
+    h4 {
         font-size: large;
+        margin-top: 2vh;
     }
 
         //Fin de la base
+
+        .mangaPlus-link {
+            color: $white;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover > img {
+                object-position: 0% 0%;
+            }
+        }
+
+        .mangaPlus-container {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2vh;
+            width: 80%;
+            margin-left: 10%;
+
+            p {
+                position: absolute;
+                padding: 0.5rem;
+                background-color: $black1;
+                border-radius: 10px;
+            }
+
+            img {
+                height: 30vh;
+                width: 100%;
+                object-fit: cover;
+                opacity: 0.5;
+                border-radius: 30px;
+                transition: 1s ease;
+            }
+
+            
+        }
 }

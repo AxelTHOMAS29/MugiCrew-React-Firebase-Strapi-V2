@@ -15,18 +15,43 @@
             border-top-left-radius: 0;
             border-bottom-right-radius: 30px;
             margin-bottom: 2vh;
+            min-width: 25%;
             max-width: 90%;
 
-            @media screen and (max-width: 450px) {
-                min-width: 50%;
+            @media screen and (max-width: 1000px) {
+                min-width: 40%;
+            }
+
+            @media screen and (max-width: 500px) {
+                min-width: 60%;
             }
         }
 
-        .message-name {
-            color: $grey;
+        .message-name-date {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
             margin-bottom: 1vh;
-            text-decoration-line: underline;
+
+            .message-name {
+                color: $grey;
+                text-decoration-line: underline;
+            }
+
+            p {
+                margin-left: 2vw;
+                opacity: 0.5;
+                font-style: italic;
+                margin-right: 2vw;
+                @media screen and (max-width: 500px) {
+                    font-size: 10px;
+                }
+                
+            }
         }
+
+        
 
         .message-texte {
             background-color: $black3;
@@ -38,6 +63,11 @@
             @media screen and (max-width: 450px) {
                 min-width: 10%;
             }
+        }
+
+        .video-youtube {
+            border-bottom-left-radius: 10px;
+            max-width: 90%;
         }
 
         .message-texte p {

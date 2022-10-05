@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import firebase from 'firebase/compat/app';
+import moment from "moment";
 
 import { db, auth } from '../utils/firebase.config';
 import ConnectModal from '../components/firebase/ConnectModal';
@@ -17,6 +18,7 @@ import { faArrowLeft, faPaperPlane, faTrash, faArrowRightFromBracket, faPlus } f
 const DiscussionDetails = () => {
     const { id } = useParams();
     const [message, setMessage] = useState("");
+    const [video, setVideo] = useState("");
     const [user] = useAuthState(auth);
     const [limiteMessage, setLimiteMessage] = useState(10);
     const [loadPost, setLoadPost] = useState(false);
@@ -37,7 +39,7 @@ const DiscussionDetails = () => {
         setMessages(req)
 
         //Récupérer les commentaires
-        const reqC = await db.collection(`messages/${id}/commentaires`).orderBy('createdAt', 'desc').limit(limiteMessage).get();
+        const reqC = await db.collection(`messages/${id}/commentaires`).orderBy('createdAt', 'asc').limit(limiteMessage).get();
         const allComments = reqC.docs.map((comment) => ({ ...comment.data(), id: comment.id }))
         setComments(allComments)
         setLoadPost(true)
@@ -54,13 +56,32 @@ const DiscussionDetails = () => {
 
         await commentsRef.add({
             comment: message,
+            youtube: video,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             uid,
             name: user.displayName,
         });
         setReload(true);
         setMessage('');
+        setVideo('');
     }
+
+    //Récupérer les vidéos
+    useEffect(() => {
+        const handleVideo = () => {
+            let findLink = message.split(" ");
+            for (let i = 0; i < findLink.length; i++) {
+                if (
+                    findLink[i].includes("https://www.yout") ||
+                    findLink[i].includes("https://yout")
+                ) {
+                    let embed = findLink[i].replace("watch?v=", "embed/");
+                    setVideo(embed.split("&")[0]);
+                }
+            }
+        };
+        handleVideo();
+    }, [message, video]);
 
     const deleteDoc = (a) => {
         db.collection('messages').doc(`${id}`).collection("commentaires").doc(a).delete();
@@ -146,8 +167,16 @@ const DiscussionDetails = () => {
                                 <div className='message-name'>
                                     <h3 className='name-letter'>{messages.data().name[0]}</h3>
                                     <h3>{messages.data().name}</h3>
+                                    <p>{moment(messages.data().createdAt.toDate()).format("DD/MM/YY HH:MM")}</p>
                                 </div>
                                 <ReactMarkdown>{messages.data().text}</ReactMarkdown>
+                                {messages.data().youtube && (
+                                    <iframe src={messages.data().youtube} frameBorder='0'
+                                        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                                        allowFullScreen
+                                        title={messages.data().youtube}
+                                        className='video-youtube' />
+                                )}
                                 {user ? (
                                     <form className='form' onSubmit={sendMessage} >
                                         <textarea className='comment-form' placeholder='Ajouter un commentaire...' value={message} onChange={(e) => setMessage(e.target.value)} />
@@ -162,9 +191,18 @@ const DiscussionDetails = () => {
                                 <div className='comments-container'>
                                     {comments.map(comment => (
                                         <div className='comments-item' key={comment.id}>
-                                            <h3>{comment.name}</h3>
+                                            <div className='comments-name-date'>
+                                                <h3>{comment.name}</h3>
+                                                <p>{moment(comment.createdAt.toDate()).format("DD/MM/YY HH:MM")}</p>
+                                            </div>
                                             <ReactMarkdown>{comment.comment}</ReactMarkdown>
-
+                                            {comment.youtube && (
+                                                <iframe src={comment.youtube} frameBorder='0'
+                                                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                                                    allowFullScreen
+                                                    title={comment.youtube}
+                                                    className='video-youtube' />
+                                            )}
                                             {user && (
                                                 <div className='delete-container'>
                                                     {auth.currentUser.uid === comment.uid && (
