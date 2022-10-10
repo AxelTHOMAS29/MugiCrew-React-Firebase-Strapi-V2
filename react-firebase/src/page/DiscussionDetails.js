@@ -6,6 +6,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import firebase from 'firebase/compat/app';
 import moment from "moment";
+import { motion } from "framer-motion";
+import { test1, transition } from "../animation/animation";
 
 import { db, auth } from '../utils/firebase.config';
 import ConnectModal from '../components/firebase/ConnectModal';
@@ -48,7 +50,7 @@ const DiscussionDetails = () => {
 
     useEffect(() => {
         fetchAll();
-    }, []);
+    }, [fetchAll]);
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -138,11 +140,11 @@ const DiscussionDetails = () => {
     }, [loadMore]);
 
     return (
-        <div className="discussion-details">
+        <motion.div className="discussion-details" initial='out' animate='in' exit='out' variants={test1} transition={transition}>
             <Navigation />
             <main>
                 <div className='background'>
-                    <img className='background-Img' src='../img/ShanksBack.jpg' />
+                    <img className='background-Img' src='../img/ShanksBack.jpg' alt='shanks one piece' />
                 </div>
                 <section >
                     <LogoDetails />
@@ -232,10 +234,10 @@ const DiscussionDetails = () => {
                     </div>
                 </section>
                 <div className='background background2'>
-                    <img className='background-Img' src='../img/kaidoBack.jpg' />
+                    <img className='background-Img' src='../img/kaidoBack.jpg' alt='kaido one piece' />
                 </div>
             </main>
-        </div>
+        </motion.div>
     );
 };
 

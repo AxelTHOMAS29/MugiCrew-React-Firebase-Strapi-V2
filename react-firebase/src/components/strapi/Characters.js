@@ -21,7 +21,7 @@ const Characters = () => {
                 }} />
             <div className='item-container'>
             {data.data.filter((character)=> {
-                if (searchName =="") {
+                if (searchName === "") {
                     return character
                 } else if (character.attributes.Name.toLowerCase().includes(searchName.toLowerCase())) {
                     return character
@@ -29,9 +29,9 @@ const Characters = () => {
             })
             .map(character => (
                 <Link to={`/details/${character.id}`}>
-                <div key={character.attributes.id} className='item'>
-                    <div className='item-name'>{character.attributes.Name}</div>
-                    <img className='item-img' src={"http://localhost:1337" + character.attributes.picture.data.attributes.formats.thumbnail.url}></img>
+                <div key={character.id} className='item'>
+                    <div className='item-name' key={character.attributes.Name}>{character.attributes.Name}</div>
+                    <img className='item-img' src={"http://localhost:1337" + character.attributes.picture.data.attributes.formats.thumbnail.url} key={Math.random()} alt={character.attributes.Name}></img>
                 </div>
                 </Link>
             ))}

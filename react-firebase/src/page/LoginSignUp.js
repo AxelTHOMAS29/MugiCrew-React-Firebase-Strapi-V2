@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket, faMessage, faTrash, faComment, faArrowRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import moment from "moment";
+import { motion } from "framer-motion";
+import { test1, transition } from "../animation/animation";
 
 import ConnectModal from '../components/firebase/ConnectModal';
 import Navigation from '../components/Navigation';
@@ -32,12 +34,11 @@ const LoginSignUp = () => {
         const allMessages = req.docs.map((messages) => ({ ...messages.data(), id: messages.id }))
         setMessages(allMessages)
 
-        //Récupérer les commentaires
-        allMessages.map(async (elem) => {
-            const reqC = await db.collection(`messages/${elem.id}/commentaires`).orderBy('createdAt', 'desc').get();
-            const allComments = reqC.docs.map((comment) => ({ ...comment.data(), id: comment.id }))
-
-        })
+            //Récupérer les commentaires
+        //allMessages.map(async (elem) => {
+           // const reqC = await db.collection(`messages/${elem.id}/commentaires`).orderBy('createdAt', 'desc').get();
+            //const allComments = reqC.docs.map((comment) => ({ ...comment.data(), id: comment.id }))
+        //})
     }
 
     useEffect(() => {
@@ -110,12 +111,12 @@ const LoginSignUp = () => {
     }
 
     return (
-        <div className='login'>
+        <motion.div className='login' initial='out' animate='in' exit='out' variants={test1} transition={transition}>
 
             <Navigation />
             <main>
                 <div className='background'>
-                    <img className='background-Img' src='./img/ShanksBack.jpg' />
+                    <img className='background-Img' src='./img/ShanksBack.jpg' alt='shanks one piece' />
                 </div>
                 <section className='home-container'>
                     <Logo />
@@ -140,7 +141,7 @@ const LoginSignUp = () => {
                                         <form onSubmit={sendMessage}>
                                             <textarea placeholder='Message...' value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
                                             <div className='img-upload-container'>
-                                                <img id='img-post' src='./img/icones/picture.svg' />
+                                                <img id='img-post' src='./img/icones/picture.svg' alt='icone search' />
                                                 <input className='file-upload' type="file" accept='.jpg, .jpeg, .png' name='file'/>
                                             </div>
                                             <input type='submit' disabled={!message} value='Envoyer'></input>
@@ -209,10 +210,10 @@ const LoginSignUp = () => {
 
                 </section>
                 <div className='background background2'>
-                    <img className='background-Img' src='./img/KaidoBack.jpg' />
+                    <img className='background-Img' src='./img/KaidoBack.jpg' alt='kaido one piece' />
                 </div>
             </main>
-        </div>
+        </motion.div>
     );
 };
 

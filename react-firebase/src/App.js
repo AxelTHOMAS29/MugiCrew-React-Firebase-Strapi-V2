@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Discussion from './page/Discussion';
 import Histoire from './page/Histoire';
 import PersonnageDetails from './page/PersonnageDetails';
@@ -14,6 +15,7 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
+        <AnimatePresence>
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/log" element={<Discussion />} />
@@ -24,6 +26,7 @@ const App = () => {
             <Route path="/histoireDetail/:id" element={<HistoireDetails />} />
             <Route path="/discussionDetail/:id" element={<DiscussionDetails />} />
           </Routes>
+        </AnimatePresence>
       </BrowserRouter>
     </div>
   );

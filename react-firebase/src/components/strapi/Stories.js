@@ -16,7 +16,7 @@ const Stories = () => {
             <Link to={`/histoireDetail/${Histoire.id}`}>
                 <div key={Math.random()} className='item'>
                     <div className='histoire-name' key={Math.random()}><h2>{Histoire.attributes.Nom}</h2></div>
-                    <img className='histoire-img' key={Math.random()} src={"http://localhost:1337" + Histoire.attributes.Image.data.attributes.url}></img>
+                    <img className='histoire-img' key={Math.random()} src={"http://localhost:1337" + Histoire.attributes.Image.data.attributes.url} alt={Histoire.attributes.Nom}></img>
                 </div>
              </Link>
         ))}

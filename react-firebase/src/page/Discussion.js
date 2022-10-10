@@ -8,14 +8,14 @@ const Discussions = () => {
             <Navigation />
             <main>
                 <div className='background'> 
-                    <img className='background-Img background-img-2' src='./img/NamiBack.jpg' />
+                    <img className='background-Img background-img-2' src='./img/NamiBack.jpg' alt='nami one piece' />
                 </div>
                 <section className='home-container'>
                     <Logo />
                     <h1>Work in Progress</h1>
                 </section>
                 <div className='background background2'>
-                    <img className='background-Img background-img-2' src='./img/UssopBack.jpg' />
+                    <img className='background-Img background-img-2' src='./img/UssopBack.jpg' alt='ussop one piece' />
                 </div>
             </main>
         </div>

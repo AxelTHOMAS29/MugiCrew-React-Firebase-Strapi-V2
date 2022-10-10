@@ -22,7 +22,7 @@ const StoryDetails = () => {
         <div>
             <div className='details-container'>
                         <div className='details-title-container'>
-                            <img className='details-img' src={"http://localhost:1337" + dataHistoireSingle.data.attributes.Image.data.attributes.url} />
+                            <img className='details-img' src={"http://localhost:1337" + dataHistoireSingle.data.attributes.Image.data.attributes.url} alt={dataHistoireSingle.data.attributes.Nom} />
                             <div className='details-title'><h1>{dataHistoireSingle.data.attributes.Nom}</h1></div>
                         </div>
                         <div className='details-description'>

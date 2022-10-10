@@ -16,7 +16,7 @@ const CharactersDetails = () => {
     return (
         <div>
             <div className='details-container' key={data.data.attributes.id}>
-                <img className='details-img' src={"http://localhost:1337" + data.data.attributes.picture.data.attributes.formats.thumbnail.url} />
+                <img className='details-img' src={"http://localhost:1337" + data.data.attributes.picture.data.attributes.formats.thumbnail.url} alt={data.data.attributes.Name} />
                 <div className='details-nom-age'>
                     <div><h2>Nom : {data.data.attributes.Name}</h2></div>
                     <div><h2>Age : {data.data.attributes.age}</h2></div>
